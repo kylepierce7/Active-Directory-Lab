@@ -61,3 +61,37 @@
  `tracert 8.8.8.8` failure
  
  Confirmed both _INTERNET_ and X_INTERNAL0_X are functioning correctly | Re-enable _INTERNET_ after testing
+ 
+ Configure IP addressing: Network Settings / Change Adapter Options  / Properties / IPv4 Properties
+ 
+ `X_INTERNAL0_x` 
+ - 172.16.0.1
+ - 255.255.255.0
+ - Gateway: <empty>
+ - DNS: 127.0.0.1
+ 
+## Change Computer name / Settings / Home / About / System Info / Change Settings / Change / Changed to "DC" / Restart system
+ 
+ Active Directory will act as its own DNS server after it's installed. That's why the loopback address (127.0.0.1) was used. 
+ 
+ ## Active Directory Configuration
+ - Install Active Directory Domain Services (AD DS) and create a domain 
+  - Server Manager / Add Roles and Features / Active Directory Domain Services 
+  - Promote server to Domain Controller: Active Directory Domain Services Configuration Wizard / Add new forest / add domain name: `mydomain.com`
+ 
+ Password: Password1
+ 
+ **NOTE** Active Directory Domain Services Configuration Wizard shows this error:
+ 
+ "A delegation for this DNS server cannot be created because the authoritative parent zone cannot be found or does not run Windows DNS server. If you are integrating with an existing DNS infrastructure, you should manually creat a delegation to this DNS server in the parent zone to ensure reliable name resolution from outside the domain "mydomain.com". Otherwise, no action is required."
+ 
+ NetBIOS domain name: MYDOMAIN
+ 
+ After restart, was able to login as Admin to the MYDOMAIN.COM domain!
+ 
+ ## 
+ 
+ 
+ 
+ 
+ 
