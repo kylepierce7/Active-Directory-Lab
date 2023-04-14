@@ -91,6 +91,23 @@
  
  ## 
  
+ # Creating Admin Accounts
+ 
+ - Start / Administrative Tools / Active Directory Users and Computers
+ - `mydomain.com` create a new Organizational Unit to store the new Admin account. `_ADMINS`
+ In `_ADMINS`, create a new user `a-kpierce` (`a-` represents an Admin account). Password: Password1
+ Edit User Properties / Member Of / Add / `Domain Admins` 
+ Sign out and you can now log in under the `Other User` with your account name and password.
+ 
+ # Creating User Accounts
+ - Start / Administrative Tools / Active Directory Users and Computers / Users / New User
+ - Make new user: Jim Bob/ jbob / Password: Password2 / User must change on login / Will change to: Password1
+ - Sign out / Log in as `jbob` / System prompts to change password / jbob
+ 
+ 
+ NEXT STEP:
+ - jbob's password is incorrect. Log in as Admin and check/preform password reset. (NOT DONE YET)
+ 
  
  
  
