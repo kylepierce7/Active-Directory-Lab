@@ -122,10 +122,16 @@
  - Create a new Group for disabled accounts / Users / Disabled Accounts / Properties / Members / Add fsmith / Add Group or Username / Add Disabled Accounts to create a group / Deny All
 - Restart system and confirm fsmith account / "Account has been disabled. See your system admin"
 - Confirm jbob's password reset / System asks for a password update/ Password history doesn't allow Password1 for the rest / Password: Password3
+- jbob's login presents with "The Sign-in method you're trying to use isn't allowed. Contact your network administrator."
+- Login as Admin / Check Local Group Policy Editor `gpedit.msc` / Windows Settings / Security Settings / Local Policies / User Rights Assignments / Allow Log in locally / Properties / Denyed /
+
+Is this disabled because it's a server not a client???  
 
  NEXT STEP: 
  
- Change Password History settings and changs jbob's password back to Password1
+ 1. Check by installing Windows 10 as a client and loging into domain
+ 
+ 2. Change Password History settings and changs jbob's password back to Password1
  
  
 
