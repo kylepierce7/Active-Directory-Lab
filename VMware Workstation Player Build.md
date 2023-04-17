@@ -108,6 +108,25 @@
  NEXT STEP:
  - jbob's password is incorrect. Log in as Admin and check/preform password reset. (NOT DONE YET)
  
+ - Update Windows Server 20230417
+ 
+ - Login as Admin and review jbob's account password. Administrative Tools / Active Directory Users and Computers / Enable Advanced features //
+- Find Objects in Domain Services /  Entire domain / jbob / User found / Right click on user / Reset Password: Password2 (must change at next login) 
+ 
+ - Make test disabled user account. Users and Computers / Users / Add User / User: Frank Smith / fsmith / Password1 / Status: disabled
+ 
+ - Confirm guest accounts is disabled. 
+ 
+ - Create a new Group for disabled accounts / Users / Disabled Accounts / Properties / Members / Add fsmith / Add Group or Username / Add Disabled Accounts to create a group / Deny All
+- Restart system and confirm fsmith account / "Account has been disabled. See your system admin"
+- Confirm jbob's password reset / System asks for a password update/ Password history doesn't allow Password1 for the rest / Password: Password3
+
+ NEXT STEP: 
+ - Change Password History settings and changs jbob's password back to Password1
+ 
+ 
+
+ 
  
  
  
