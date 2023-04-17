@@ -106,7 +106,9 @@
  
  
  NEXT STEP:
- - jbob's password is incorrect. Log in as Admin and check/preform password reset. (NOT DONE YET)
+ 
+ jbob's password is incorrect. Log in as Admin and check/preform password reset. (NOT DONE YET)
+ 
  
  - Update Windows Server 20230417
  
@@ -122,7 +124,8 @@
 - Confirm jbob's password reset / System asks for a password update/ Password history doesn't allow Password1 for the rest / Password: Password3
 
  NEXT STEP: 
- - Change Password History settings and changs jbob's password back to Password1
+ 
+ Change Password History settings and changs jbob's password back to Password1
  
  
 
