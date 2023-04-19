@@ -133,8 +133,28 @@ Is this disabled because it's a server not a client???
  
  2. Change Password History settings and changs jbob's password back to Password1
  
+ ## Install Windows 10 Pro
+ - Windows Media Creation Tool / Create installation media (I already had an .ISO)
  
+-Name machine: CLIENT1 / Password: Password1 / pet: Password1 / City: Password1 / City where parents met: Password1
+- Install VMware Tools 
+- was able to log in as CLIENT1
+- Shutdown
+- Change VMware Settings / NIC: Custom - VMnet0
+- Restart / attempt to login to domain / Not available
 
+ **Do I need to setup a second NIC?**
+
+ 
+ ## Configure Remote Access and Network Address Translation for DC
+ - Install Remote Access Server (RAS) and NAT. This will allow CLIETN1 to access the internet through the DC.
+ - Server Manager / Manage / Add Roles and Features / Remote Access / Select "Direct Access and VPN", "Routing" & "Web Application Proxy"
+- Tools / Routing and Remote Access / DC Local / Configure and enable / Configuration: NAT / Selected `_INTERNET_` ad internet interface / Network selection, selected `X_INTERNAL0_X`
+ 
+ ## Configure DHCP
+ 
+ 
+ 
  
  
  
