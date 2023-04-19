@@ -142,8 +142,21 @@ Is this disabled because it's a server not a client???
 - Shutdown
 - Change VMware Settings / NIC: Custom - VMnet0
 - Restart / attempt to login to domain / Not available
-
- **Do I need to setup a second NIC?**
+- VM has 3 NICs:
+1. Custom: VMnet0
+2. NAT
+3. Host-only
+ 
+# Joining the Domain with CLIENT1
+- Right click on Start / Settings / Rename this PC (Advanced) / Change / Computer Name: CLIENT1 / Domain: mydomain.com
+- Authenticate: Was able to authenticate with `a-kpierce` and `Password1`
+- Restart
+ - Was able to login to Domain as `jbob` `Password3`
+ - Go to Active Directory DC and change `jbob`'s password back to `Password1`
+ - Active Directory Users and Computers / Find Objects `jbob` /  Right click to change password / `Password1`
+ - Go back to CLIENT1 to confirm / Can login in to `jbob` with `Password1`
+ 
+ •	SUCCESS!
 
  
  ## Configure Remote Access and Network Address Translation for DC
@@ -151,7 +164,17 @@ Is this disabled because it's a server not a client???
  - Server Manager / Manage / Add Roles and Features / Remote Access / Select "Direct Access and VPN", "Routing" & "Web Application Proxy"
 - Tools / Routing and Remote Access / DC Local / Configure and enable / Configuration: NAT / Selected `_INTERNET_` ad internet interface / Network selection, selected `X_INTERNAL0_X`
  
- ## Configure DHCP
+ ## Configure DHCP server
+ - Manage / Add roles and Features / DHCP server / Install
+ - After install, Tools / DHCP / Setup the IPv4 Scope / New Scope (to assign the available IP address range)
+ -IP address range:
+  - Name: `172.16.0.100-200
+  - Subnetmask: 255.255.255.0
+  -Router ( Default Gateway): 172.16.0.1 Add (The DC is using its own NIC to provide internet access and will function as the Default Gateway `172.16.0.1` )
+ - Finish the configuration / When complete go back to the DHCP and Right Click to Authorize and Refresh
+ 
+ 
+ 
  
  
  
