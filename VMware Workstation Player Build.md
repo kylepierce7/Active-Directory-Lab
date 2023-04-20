@@ -205,7 +205,7 @@ New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false
                -EmployeeID $username `
                -PasswordNeverExpires $true `
                -Path "ou=_USERS,$(([ADSI]`"").distinguishedName)" `
-               -Enabled $true }`
+               -Enabled $true }
 	
 	
  
@@ -214,13 +214,13 @@ Saved the above as `1_CREATE_USERS.ps1` / Saved to DC Desktop
 Entered a txt file of sample user names as `names.txt` / Saved to DC Desktop
 	
 
-	Powershell ISE Run as Admin / Enable scripts on server `Set-ExecutionPolicy Unrestricted` / Right click on file to find Path / `C:\Users\a-kpierce\Desktop` | Need to elivate privlege so run as `".\1_CREATE_USERS.ps1"Navigate to `1_CREATE_USERS.ps1` folder is and RUN 
+Powershell ISE Run as Admin / Enable scripts on server `Set-ExecutionPolicy Unrestricted` / Right click on file to find Path / `C:\Users\a-kpierce\Desktop` | Need to elivate privlege so run as `".\1_CREATE_USERS.ps1"Navigate to `1_CREATE_USERS.ps1` folder is and RUN 
  
-	** code error in `New_AdUser -AccountPassword $pasword` ** 
+** code error in `New_AdUser -AccountPassword $pasword` ** 
 	
-	** FIX TO: `New_AdUser -AccountPassword $password` | EDIT FILE and RETRY 
+** FIX TO: `New_AdUser -AccountPassword $password` | EDIT FILE and RETRY 
 	
-	** Same error. Troubleshoot script.
+** Same error. Troubleshoot script.
 	
 	
 	
