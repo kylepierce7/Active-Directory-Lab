@@ -191,7 +191,7 @@ $USER_FIRST_LAST_LIST = Get-Content .\names.txt
 $password = ConvertTo-SecureString $PASSWORD_FOR_USERS -AsPlainText -Force
 New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false
 
-foreach ($n in $USER_FIRST_LAST_LIST) {
+`foreach ($n in $USER_FIRST_LAST_LIST) {
     $first = $n.Split(" ")[0].ToLower()
     $last = $n.Split(" ")[1].ToLower()
     $username = "$($first.Substring(0,1))$($last)".ToLower()
@@ -206,7 +206,7 @@ foreach ($n in $USER_FIRST_LAST_LIST) {
                -PasswordNeverExpires $true `
                -Path "ou=_USERS,$(([ADSI]`"").distinguishedName)" `
                -Enabled $true
-}
+}`
 	
 	
  
