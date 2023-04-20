@@ -205,7 +205,7 @@ New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false
                -EmployeeID $username `
                -PasswordNeverExpires $true `
                -Path "ou=_USERS,$(([ADSI]`"").distinguishedName)" `
-               -Enabled $true } `
+               -Enabled $true }`
 	
 	
  
