@@ -125,13 +125,26 @@
 - jbob's login presents with "The Sign-in method you're trying to use isn't allowed. Contact your network administrator."
 - Login as Admin / Check Local Group Policy Editor `gpedit.msc` / Windows Settings / Security Settings / Local Policies / User Rights Assignments / Allow Log in locally / Properties / Denyed /
 
-Is this disabled because it's a server not a client???  
 
- NEXT STEP: 
+
+
  
- 1. Check by installing Windows 10 as a client and loging into domain
  
- 2. Change Password History settings and changs jbob's password back to Password1
+ 
+ ## Configure Remote Access and Network Address Translation for DC
+ - Install Remote Access Server (RAS) and NAT. This will allow CLIETN1 to access the internet through the DC.
+ - Server Manager / Manage / Add Roles and Features / Remote Access / Select "Direct Access and VPN", "Routing" & "Web Application Proxy"
+- Tools / Routing and Remote Access / DC Local / Configure and enable / Configuration: NAT / Selected `_INTERNET_` ad internet interface / Network selection, selected `X_INTERNAL0_X`
+ 
+ ## Configure DHCP server
+ - Manage / Add roles and Features / DHCP server / Install
+ - After install, Tools / DHCP / Setup the IPv4 Scope / New Scope (to assign the available IP address range)
+ -IP address range:
+  - Name: `172.16.0.100-200
+  - Subnetmask: 255.255.255.0
+  -Router ( Default Gateway): 172.16.0.1 Add (The DC is using its own NIC to provide internet access and will function as the Default Gateway `172.16.0.1` )
+ - Finish the configuration / When complete go back to the DHCP and Right Click to Authorize and Refresh
+ 
  
  ## Install Windows 10 Pro
  - Windows Media Creation Tool / Create installation media (I already had an .ISO)
@@ -157,26 +170,62 @@ Is this disabled because it's a server not a client???
  - Go back to CLIENT1 to confirm / Can login in to `jbob` with `Password1`
  
  •	SUCCESS!
+ 
+## Checking other user account permissions 
+- fmith: Couldn't login. Login to the DC and retry. "We can't sign you in with this credential because your domain isn't available..."
+- jbob: valid login
+- Go to the DC and enable fsmith's account and retry. Active Directory Users and Computers / Find Users and Computers / fsmith / Right click to enable / 
+- fsmith still can't login. Check AD user settings at DC. Active Directory Users and Computers / Frank Smith Properties / Unlock Account / Did not work / RESTART CLIENT1
+- fsmith can login to CLIENT1
+	
+- SUCCESS!
+	
+	## Use a Powershell script to create users
+	- SOURCE: Youtube.com | Josh Madakor | "How to setup a basic home lab running active directory" | https://www.youtube.com/watch?v=MHsI8hJmggI&t=1681s
+	
+	
 
+$PASSWORD_FOR_USERS   = "Password1"
+$USER_FIRST_LAST_LIST = Get-Content .\names.txt
+
+$password = ConvertTo-SecureString $PASSWORD_FOR_USERS -AsPlainText -Force
+New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false
+
+foreach ($n in $USER_FIRST_LAST_LIST) {
+    $first = $n.Split(" ")[0].ToLower()
+    $last = $n.Split(" ")[1].ToLower()
+    $username = "$($first.Substring(0,1))$($last)".ToLower()
+    Write-Host "Creating user: $($username)" -BackgroundColor Black -ForegroundColor Cyan
+    
+    New-AdUser -AccountPassword $password `
+               -GivenName $first `
+               -Surname $last `
+               -DisplayName $username `
+               -Name $username `
+               -EmployeeID $username `
+               -PasswordNeverExpires $true `
+               -Path "ou=_USERS,$(([ADSI]`"").distinguishedName)" `
+               -Enabled $true
+}
+	
+	
  
- ## Configure Remote Access and Network Address Translation for DC
- - Install Remote Access Server (RAS) and NAT. This will allow CLIETN1 to access the internet through the DC.
- - Server Manager / Manage / Add Roles and Features / Remote Access / Select "Direct Access and VPN", "Routing" & "Web Application Proxy"
-- Tools / Routing and Remote Access / DC Local / Configure and enable / Configuration: NAT / Selected `_INTERNET_` ad internet interface / Network selection, selected `X_INTERNAL0_X`
+Saved the above as `1_CREATE_USERS.ps1` / Saved to DC Desktop
+	
+Entered a txt file of sample user names as `names.txt` / Saved to DC Desktop
+	
+
+	Powershell ISE Run as Admin / Enable scripts on server `Set-ExecutionPolicy Unrestricted` / Right click on file to find Path / `C:\Users\a-kpierce\Desktop` | Need to elivate privlege so run as `".\1_CREATE_USERS.ps1"Navigate to `1_CREATE_USERS.ps1` folder is and RUN 
  
- ## Configure DHCP server
- - Manage / Add roles and Features / DHCP server / Install
- - After install, Tools / DHCP / Setup the IPv4 Scope / New Scope (to assign the available IP address range)
- -IP address range:
-  - Name: `172.16.0.100-200
-  - Subnetmask: 255.255.255.0
-  -Router ( Default Gateway): 172.16.0.1 Add (The DC is using its own NIC to provide internet access and will function as the Default Gateway `172.16.0.1` )
- - Finish the configuration / When complete go back to the DHCP and Right Click to Authorize and Refresh
- 
- 
- 
- 
- 
+	** code error in `New_AdUser -AccountPassword $pasword` ** 
+	
+	** FIX TO: `New_AdUser -AccountPassword $password` | EDIT FILE and RETRY 
+	
+	** Same error. Troubleshoot script.
+	
+	
+	
+
  
  
  
